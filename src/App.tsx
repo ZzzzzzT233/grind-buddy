@@ -9,7 +9,7 @@ import { backend } from "./store";
 import type { Session } from "./store/backend";
 import { useTeam } from "./store/useTeam";
 
-const REPO = "https://github.com/OWNER/grind-buddy";
+const REPO = "https://github.com/ZzzzzzT233/grind-buddy";
 const TEAM_KEY = "grind-buddy:team";
 
 function useToast() {

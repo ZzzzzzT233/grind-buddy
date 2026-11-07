@@ -2,7 +2,7 @@
 
 A small tracker for two friends preparing for tech interviews together. It covers **NeetCode 150 + System Design**: you share one weekly plan, track every problem from "done once" to "mastered", get weekly problem sets drawn toward what you've practised least, and have a stats page built to keep you going.
 
-**[Live demo](https://OWNER.github.io/grind-buddy/)**: without a backend configured, the site runs in local demo mode and your data stays in your browser.
+**[Live demo](https://ZzzzzzT233.github.io/grind-buddy/)**: without a backend configured, the site runs in local demo mode and your data stays in your browser.
 
 > The interface is in Chinese for now. An English UI is a welcome contribution.
 
@@ -25,7 +25,7 @@ Problem sets: [NeetCode 150](https://neetcode.io/practice) (18 topics) plus 29 S
 ## Quick start
 
 ```bash
-git clone https://github.com/OWNER/grind-buddy.git
+git clone https://github.com/ZzzzzzT233/grind-buddy.git
 cd grind-buddy
 npm install
 npm run dev
