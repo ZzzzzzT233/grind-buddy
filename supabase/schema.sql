@@ -131,6 +131,14 @@ begin
   end loop;
 end $$;
 
+-- ── grants (works even if "automatically expose new tables" is off) ─────
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on
+  public.teams, public.team_members, public.plans, public.progress, public.passes, public.queues
+  to authenticated;
+grant execute on function public.is_member(uuid), public.create_team(text, text), public.join_team(text, text)
+  to authenticated;
+
 -- ── realtime: live updates when your buddy checks something off ─────────
 do $$
 declare tbl text;
