@@ -1,0 +1,28 @@
+{
+  "name": "grind-buddy",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A two-person tech interview prep tracker: NeetCode 150 + System Design, shared weekly plans, weighted problem draws, and a stats page that keeps you going.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.50.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.9.2",
+    "vite": "^7.1.0",
+    "vitest": "^3.2.0"
+  }
+}
