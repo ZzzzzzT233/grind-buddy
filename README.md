@@ -37,13 +37,14 @@ It runs with no configuration in **local demo mode**: data is kept in localStora
 
 1. Create a project at [supabase.com](https://supabase.com).
 2. Open **SQL Editor**, paste all of [`supabase/schema.sql`](supabase/schema.sql), and run it. This creates the tables, row-level security (RLS) policies, and realtime publication.
-3. Under **Authentication → URL Configuration**, add your site URL to *Site URL* and *Redirect URLs*. Use `http://localhost:5173` for local development and your deployed URL in production. Sign-in uses email magic links.
+3. Under **Authentication → URL Configuration**, add your site URL to *Site URL* and *Redirect URLs*. Use `http://localhost:5173` for local development and your deployed URL in production.
+   Then go to **Authentication → Sign In / Providers → Email** and turn off **Confirm email**. Sign-in uses email + password, so no emails are sent (Supabase's built-in mailer only allows a couple per hour).
 4. Copy `.env.example` to `.env.local` and fill in the `Project URL` and `anon public` key from **Project Settings → API**:
    ```
    VITE_SUPABASE_URL=https://xxxx.supabase.co
    VITE_SUPABASE_ANON_KEY=eyJ...
    ```
-5. Run `npm run dev`, sign in with your email, create a team, and send the 8-character invite code from **Settings** to your buddy. They sign in and enter the code to join.
+5. Run `npm run dev`, register with an email and password, create a team, and send the 8-character invite code from **Settings** to your buddy. They register and enter the code to join.
 
 The anon key is meant to be public in the frontend. Data is protected by the RLS policies in `schema.sql`: only team members can read a team's data, and each person can write only their own progress.
 

@@ -5,6 +5,14 @@ import type { Backend, Session } from "./backend";
 /** Untyped DB row; columns are mapped by hand below. */
 type Row = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
+function friendly(m: string): string {
+  if (/invalid login credentials/i.test(m)) return "邮箱或密码不对（还没注册的话点「注册」）";
+  if (/already registered/i.test(m)) return "这个邮箱已经注册过了，直接登录";
+  if (/at least 6/i.test(m)) return "密码至少 6 位";
+  if (/rate limit/i.test(m)) return "操作太频繁，过几分钟再试";
+  return m;
+}
+
 const toTeam = (r: Row): Team => ({ id: r.id, name: r.name, inviteCode: r.invite_code });
 
 export class SupabaseBackend implements Backend {
@@ -38,10 +46,17 @@ export class SupabaseBackend implements Backend {
     });
     return () => data.subscription.unsubscribe();
   }
-  async signIn(email: string) {
-    const redirect = window.location.origin + window.location.pathname;
-    const { error } = await this.sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirect } });
-    if (error) throw error;
+  async signIn(email: string, password: string, create = false) {
+    // Password auth sends no email, so it works with Supabase's built-in mailer
+    // (2 emails/hour). Turn off "Confirm email" in Auth → Providers → Email.
+    if (create) {
+      const { data, error } = await this.sb.auth.signUp({ email, password });
+      if (error) throw new Error(friendly(error.message));
+      if (!data.session) throw new Error("注册成功，但项目开启了邮箱确认：请去邮箱点确认链接，或在 Supabase 关闭 Confirm email");
+      return;
+    }
+    const { error } = await this.sb.auth.signInWithPassword({ email, password });
+    if (error) throw new Error(friendly(error.message));
   }
   async signOut() {
     await this.sb.auth.signOut();

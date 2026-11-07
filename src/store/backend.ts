@@ -14,7 +14,8 @@ export interface Backend {
   readonly mode: "supabase" | "local";
   getSession(): Promise<Session | null>;
   onAuthChange(cb: (s: Session | null) => void): () => void;
-  signIn(email: string): Promise<void>;
+  /** Email + password sign-in; set `create` to register a new account. */
+  signIn(email: string, password: string, create?: boolean): Promise<void>;
   signOut(): Promise<void>;
 
   myTeams(): Promise<Team[]>;

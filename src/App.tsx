@@ -71,35 +71,47 @@ export default function App() {
 
 function SignIn({ toast }: { toast: (m: string) => void }) {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [pw, setPw] = useState("");
+  const [busy, setBusy] = useState(false);
+  const go = async (create: boolean) => {
+    if (!email.trim() || pw.length < 6) return toast("填好邮箱，密码至少 6 位");
+    setBusy(true);
+    try {
+      await backend.signIn(email.trim(), pw, create);
+    } catch (err) {
+      toast(err instanceof Error ? err.message : String(err));
+    } finally {
+      setBusy(false);
+    }
+  };
   return (
     <div className="auth">
       <h1>你一道我一道，明天拿下大结果！</h1>
       <p className="lead">和朋友一起准备技术面试：NeetCode 150 + System Design 周计划、按熟练度抽题、战绩追踪。</p>
-      {sent ? (
-        <div className="panel">登录链接已发到 {email}，去邮箱点一下就回来了。</div>
-      ) : (
-        <form
-          className="panel"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            try {
-              await backend.signIn(email.trim());
-              setSent(true);
-            } catch (err) {
-              toast("发送失败：" + (err instanceof Error ? err.message : String(err)));
-            }
-          }}
-        >
-          <label className="field">
-            <span className="label">邮箱</span>
-            <input className="text" id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
-          </label>
-          <button className="btn primary" type="submit">
-            发送登录链接
+      <form
+        className="panel"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void go(false);
+        }}
+      >
+        <label className="field">
+          <span className="label">邮箱</span>
+          <input className="text" id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+        </label>
+        <label className="field">
+          <span className="label">密码（至少 6 位）</span>
+          <input className="text" id="password" type="password" autoComplete="current-password" required minLength={6} value={pw} onChange={(e) => setPw(e.target.value)} />
+        </label>
+        <div className="row">
+          <button className="btn primary" type="submit" disabled={busy}>
+            登录
           </button>
-        </form>
-      )}
+          <button className="btn" type="button" disabled={busy} onClick={() => void go(true)}>
+            第一次用？注册
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
