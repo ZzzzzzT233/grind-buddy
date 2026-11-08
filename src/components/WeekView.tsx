@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LC_CATEGORIES } from "../data/neetcode150";
+import { SYSTEM_DESIGN } from "../data/systemDesign";
 import { currentWeek, shiftWeek, weekdayIndex, weekEnd, weekLabel } from "../lib/dates";
 import type { Kind, Plan, TeamData } from "../lib/types";
 import { ITEMS, passesOf, weekStatus, type TeamApi } from "../store/useTeam";
@@ -71,7 +72,7 @@ function PlanCard({ d, api, wk }: { d: TeamData; api: TeamApi; wk: string }) {
     const clean: Plan = {
       ...edit,
       lcTarget: Math.max(0, Math.min(150, Math.round(edit.lcTarget) || 0)),
-      sdTarget: Math.max(0, Math.min(29, Math.round(edit.sdTarget) || 0)),
+      sdTarget: Math.max(0, Math.min(SYSTEM_DESIGN.length, Math.round(edit.sdTarget) || 0)),
       focus: edit.mode === "focus" ? edit.focus : [],
     };
     void api.savePlan(clean);
@@ -135,7 +136,7 @@ function PlanCard({ d, api, wk }: { d: TeamData; api: TeamApi; wk: string }) {
             </label>
             <label className="field">
               <span className="label">System Design 每周个数</span>
-              <input className="num mono" type="number" min={0} max={29} value={edit.sdTarget} onChange={(e) => setEdit({ ...edit, sdTarget: +e.target.value })} />
+              <input className="num mono" type="number" min={0} max={SYSTEM_DESIGN.length} value={edit.sdTarget} onChange={(e) => setEdit({ ...edit, sdTarget: +e.target.value })} />
             </label>
             <div className="field">
               <span className="label">LeetCode 抽题方式</span>

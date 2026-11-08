@@ -13,6 +13,10 @@ describe("problem data", () => {
   it("links every problem to NeetCode", () => {
     LEETCODE.forEach((x) => expect(x.links?.some((l) => l.label === "NeetCode")).toBe(true));
   });
+  it("has 35 system design topics, 19 with reference solutions", () => {
+    expect(SYSTEM_DESIGN).toHaveLength(35);
+    expect(SYSTEM_DESIGN.filter((x) => x.links?.some((l) => l.label === "参考解法"))).toHaveLength(19);
+  });
   it("has unique system design ids", () => {
     expect(new Set(SYSTEM_DESIGN.map((x) => x.id)).size).toBe(SYSTEM_DESIGN.length);
   });
