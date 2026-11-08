@@ -20,7 +20,7 @@ A small tracker for two friends preparing for tech interviews together. It cover
 | **History** | Week by week, who hit the target and who didn't. |
 | **Realtime sync** | Built on Supabase, so your buddy's check-ins show up right away. |
 
-Problem sets: [NeetCode 150](https://neetcode.io/practice) (18 topics) plus 35 System Design topics (10 core concepts and 25 classic design questions). Classic questions link to the reference solutions NeetCode points to on System Design School, plus an article search and a video search.
+Problem sets: [NeetCode 150](https://neetcode.io/practice) (18 topics) plus 35 System Design topics (10 core concepts and 25 classic design questions). Classic questions link to NeetCode's own walkthrough where one exists, the reference solutions NeetCode's System Design list points to (on System Design School), a Google search and a YouTube search.
 
 ## Quick start
 

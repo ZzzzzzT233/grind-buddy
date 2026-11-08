@@ -35,6 +35,11 @@ const SOLUTIONS: Record<string, string> = {
   Netflix: "netflix",
 };
 
+/** NeetCode's own written walkthroughs (neetcode.io/system-design-interview) */
+const NEETCODE_ARTICLES: Record<string, string> = {
+  "URL Shortener (TinyURL)": "https://neetcode.io/system-design-interview/url-shortener",
+};
+
 const query = (en: string) => encodeURIComponent(en.replace(/\s*\(.*\)\s*/, " ") + " system design interview");
 
 export const SYSTEM_DESIGN: Item[] = SDC.flatMap(([category, list], ci) =>
@@ -45,8 +50,9 @@ export const SYSTEM_DESIGN: Item[] = SDC.flatMap(([category, list], ci) =>
     category,
     url: SOLUTIONS[en] ? solution(en) : search(en),
     links: [
+      ...(NEETCODE_ARTICLES[en] ? [{ label: "NeetCode 讲解", url: NEETCODE_ARTICLES[en] }] : []),
       ...(SOLUTIONS[en] ? [{ label: "参考解法", url: solution(en) }] : []),
-      { label: "搜索资料", url: search(en) },
+      { label: "Google 搜索", url: search(en) },
       { label: "▶ 视频", url: `https://www.youtube.com/results?search_query=${query(en)}` },
     ],
   })),
