@@ -9,11 +9,15 @@ const SDC: [string, [string, string][]][] = [
 
 export const SD_CATEGORIES: string[] = SDC.map((x) => x[0]);
 
+const query = (en: string) => encodeURIComponent(en.replace(/\s*\(.*\)\s*/, " ") + " system design interview");
+
 export const SYSTEM_DESIGN: Item[] = SDC.flatMap(([category, list], ci) =>
   list.map(([title, en]) => ({
     id: (ci ? "sd-" : "sc-") + slugify(en).slice(0, 40),
     title,
     subtitle: en,
     category,
+    url: `https://www.google.com/search?q=${query(en)}`,
+    links: [{ label: "▶ 视频", url: `https://www.youtube.com/results?search_query=${query(en)}` }],
   })),
 );

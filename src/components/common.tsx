@@ -1,4 +1,4 @@
-import type { Kind, Level, Member, TeamData } from "../lib/types";
+import type { Item, Kind, Level, Member, TeamData } from "../lib/types";
 import { levelOf, type TeamApi } from "../store/useTeam";
 
 export const LVTXT = ["还没做", "做了 1 次", "做了 2 次", "做了 3 次", "完全掌握"] as const;
@@ -57,5 +57,26 @@ export function Track({ d, me, kind, id, api }: { d: TeamData; me: string; kind:
         </button>
       )}
     </div>
+  );
+}
+
+/** Problem / topic title with its links. */
+export function ItemTitle({ x }: { x: Item }) {
+  return (
+    <>
+      {x.url ? (
+        <a href={x.url} target="_blank" rel="noopener noreferrer">
+          {x.title}
+        </a>
+      ) : (
+        x.title
+      )}
+      {x.subtitle && <span className="muted" style={{ fontWeight: 400 }}> {x.subtitle}</span>}
+      {x.links?.map((l) => (
+        <a key={l.label} className="vid" href={l.url} target="_blank" rel="noopener noreferrer">
+          {l.label}
+        </a>
+      ))}
+    </>
   );
 }

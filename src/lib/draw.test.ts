@@ -10,6 +10,9 @@ describe("problem data", () => {
     expect(new Set(LEETCODE.map((x) => x.id)).size).toBe(150);
     expect(LC_CATEGORIES).toHaveLength(18);
   });
+  it("links every problem to NeetCode", () => {
+    LEETCODE.forEach((x) => expect(x.links?.some((l) => l.label === "NeetCode")).toBe(true));
+  });
   it("has unique system design ids", () => {
     expect(new Set(SYSTEM_DESIGN.map((x) => x.id)).size).toBe(SYSTEM_DESIGN.length);
   });

@@ -10,6 +10,8 @@ export interface Item {
   category: string;
   difficulty?: Difficulty;
   url?: string;
+  /** extra links shown after the title, e.g. NeetCode / video */
+  links?: { label: string; url: string }[];
 }
 
 export interface Team {

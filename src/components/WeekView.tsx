@@ -3,7 +3,7 @@ import { LC_CATEGORIES } from "../data/neetcode150";
 import { currentWeek, shiftWeek, weekdayIndex, weekEnd, weekLabel } from "../lib/dates";
 import type { Kind, Plan, TeamData } from "../lib/types";
 import { ITEMS, passesOf, weekStatus, type TeamApi } from "../store/useTeam";
-import { colorOf, nameOf, sortedMembers, Track } from "./common";
+import { colorOf, ItemTitle, nameOf, sortedMembers, Track } from "./common";
 
 const DAYS = ["一", "二", "三", "四", "五", "六", "日"];
 
@@ -285,15 +285,7 @@ function Queue({ d, me, api, wk }: { d: TeamData; me: string; api: TeamApi; wk: 
                         <span className="check">{isDone ? "✓" : ""}</span>
                         <div style={{ minWidth: 0 }}>
                           <div className="t">
-                            {x.url ? (
-                              <a href={x.url} target="_blank" rel="noopener noreferrer">
-                                {x.title}
-                              </a>
-                            ) : (
-                              <>
-                                {x.title} <span className="muted" style={{ fontWeight: 400 }}>{x.subtitle}</span>
-                              </>
-                            )}
+                            <ItemTitle x={x} />
                           </div>
                           <div className="meta">
                             <span>{x.category}</span>

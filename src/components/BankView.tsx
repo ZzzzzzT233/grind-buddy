@@ -3,7 +3,7 @@ import { LC_CATEGORIES } from "../data/neetcode150";
 import { SD_CATEGORIES } from "../data/systemDesign";
 import type { Kind, TeamData } from "../lib/types";
 import { ITEMS, levelOf, type TeamApi } from "../store/useTeam";
-import { colorOf, LVTXT, nameOf, Pips, sortedMembers, Track } from "./common";
+import { colorOf, ItemTitle, LVTXT, nameOf, Pips, sortedMembers, Track } from "./common";
 
 type LvFilter = "all" | "0" | "prog" | "4";
 
@@ -77,15 +77,9 @@ export function BankView({ d, me, api, kind }: { d: TeamData; me: string; api: T
                 <div key={x.id} className={`pr ${lv === 4 ? "mastered-row" : ""}`}>
                   <div className="t">
                     {x.difficulty && <span className={`dl d-${x.difficulty}`}>{x.difficulty}</span>}
-                    {x.url ? (
-                      <a href={x.url} target="_blank" rel="noopener noreferrer">
-                        {x.title}
-                      </a>
-                    ) : (
-                      <span>
-                        {x.title} <span className="muted">{x.subtitle}</span>
-                      </span>
-                    )}
+                    <span>
+                      <ItemTitle x={x} />
+                    </span>
                   </div>
                   <div className="right">
                     {others.map((m) => {
